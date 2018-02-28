@@ -1,5 +1,8 @@
+#[cfg(feature = "std")]
 use std::error;
-use std::fmt::{self, Display};
+
+use lib::fmt::{self, Display};
+use lib::{String, ToString};
 
 use serde;
 
@@ -15,6 +18,7 @@ impl Display for Error {
     }
 }
 
+#[cfg(feature = "std")]
 impl error::Error for Error {
     fn description(&self) -> &str {
         &self.msg

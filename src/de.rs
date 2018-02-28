@@ -1,4 +1,5 @@
-use std::fmt::{self, Display};
+use lib::fmt::{self, Display};
+use lib::{String, Vec, Box};
 
 use serde;
 
@@ -929,8 +930,7 @@ fn erase<E>(e: E) -> Error
 fn unerase<E>(e: Error) -> E
     where E: serde::de::Error
 {
-    use std::error::Error;
-    E::custom(e.description())
+    E::custom(e)
 }
 
 // TEST ////////////////////////////////////////////////////////////////////////

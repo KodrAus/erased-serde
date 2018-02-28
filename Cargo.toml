@@ -8,16 +8,21 @@ repository = "https://github.com/dtolnay/erased-serde"
 documentation = "https://github.com/dtolnay/erased-serde"
 keywords = ["serde", "erasure"]
 include = ["Cargo.toml", "src/**/*.rs"]
+build = "build.rs"
 
 [dependencies]
-serde = "1.0"
+serde = { version = "1.0", default-features = false }
 
-[dev-dependencies]
-serde_cbor = "0.6"
-serde_derive = "1.0"
-serde_json = "1.0"
+# dev dependencies are pulling in std
+# [dev-dependencies]
+# serde_cbor = "0.6"
+# serde_derive = "1.0"
+# serde_json = "1.0"
 
 [features]
+default = ["alloc"]
+std = ["serde/std"]
+alloc = ["serde/alloc"]
 unstable-debug = []
 
 [[test]]

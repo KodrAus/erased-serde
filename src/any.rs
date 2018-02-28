@@ -1,4 +1,4 @@
-use std::mem;
+use lib::{mem, Box};
 
 #[cfg(feature = "unstable-debug")]
 use std::intrinsics;

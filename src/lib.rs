@@ -91,14 +91,39 @@
 #![doc(html_root_url = "https://docs.rs/erased-serde/0.3.3")]
 
 #![cfg_attr(feature = "unstable-debug", feature(core_intrinsics))]
+#![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(feature = "alloc", feature(alloc))]
+
+#![cfg(any(feature = "std", feature = "alloc"))]
 
 extern crate serde;
 
-#[cfg(test)]
-#[macro_use]
-extern crate serde_derive;
-#[cfg(test)]
-extern crate serde_json;
+#[cfg(feature = "alloc")]
+extern crate alloc;
+
+mod lib {
+    #[cfg(feature = "std")]
+    pub use std::*;
+
+    #[cfg(not(feature = "std"))]
+    pub use core::*;
+
+    #[cfg(all(not(feature = "std"), feature = "alloc"))]
+    pub use alloc::{String, Vec};
+    #[cfg(all(not(feature = "std"), feature = "alloc"))]
+    pub use alloc::boxed::Box;
+    #[cfg(all(not(feature = "std"), feature = "alloc"))]
+    pub use alloc::string::ToString;
+
+    #[cfg(feature = "std")]
+    pub use self::boxed::Box;
+    #[cfg(feature = "std")]
+    pub use self::string::String;
+    #[cfg(feature = "std")]
+    pub use self::vec::Vec;
+    #[cfg(feature = "std")]
+    pub use self::stirng::ToString;
+}
 
 #[macro_use]
 mod macros;

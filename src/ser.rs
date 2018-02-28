@@ -1,5 +1,6 @@
-use std::fmt::Display;
-use std::marker::PhantomData;
+use lib::fmt::Display;
+use lib::marker::PhantomData;
+use lib::Box;
 
 use serde;
 use serde::ser::{SerializeSeq, SerializeTuple, SerializeTupleStruct,
@@ -838,8 +839,7 @@ fn erase<E>(e: E) -> Error
 fn unerase<E>(e: Error) -> E
     where E: serde::ser::Error
 {
-    use std::error::Error;
-    E::custom(e.description())
+    E::custom(e)
 }
 
 // TEST ////////////////////////////////////////////////////////////////////////
