@@ -122,7 +122,7 @@ mod lib {
     #[cfg(feature = "std")]
     pub use self::vec::Vec;
     #[cfg(feature = "std")]
-    pub use self::stirng::ToString;
+    pub use self::string::ToString;
 }
 
 #[macro_use]
